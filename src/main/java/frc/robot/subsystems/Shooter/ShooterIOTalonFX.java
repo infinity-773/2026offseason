@@ -26,7 +26,8 @@ public class ShooterIOTalonFX implements ShooterIO {
 
   public ShooterIOTalonFX() {
     TalonFXConfiguration shotMotorConfig = new TalonFXConfiguration();
-    TalonFXConfiguration feedMotorConfig = new TalonFXConfiguration();
+    TalonFXConfiguration feedMotorConfig_1 = new TalonFXConfiguration();
+    TalonFXConfiguration feedMotorConfig_2 = new TalonFXConfiguration();
     TalonFXConfiguration turnMotorConfig = new TalonFXConfiguration();
     //
     shotMotorConfig.MotionMagic.MotionMagicAcceleration = 50;
@@ -42,28 +43,39 @@ public class ShooterIOTalonFX implements ShooterIO {
     shotMotorConfig.Slot0.kD = 0.0;
     shotMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     //
-    turnMotorConfig.MotionMagic.MotionMagicAcceleration = 5;
-    turnMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 3;
+    turnMotorConfig.MotionMagic.MotionMagicAcceleration = 20;
+    turnMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 17;
     turnMotorConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-    turnMotorConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 1;
+    turnMotorConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 2.1;
     turnMotorConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
     turnMotorConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = -0.3;
     turnMotorConfig.Voltage.PeakForwardVoltage = 12.0;
     turnMotorConfig.Voltage.PeakReverseVoltage = -12.0;
-    turnMotorConfig.Slot0.kS = 0.0;
-    turnMotorConfig.Slot0.kV = 0.0;
-    turnMotorConfig.Slot0.kG = 0.0;
+    turnMotorConfig.Slot0.kS = 0.1;
+    turnMotorConfig.Slot0.kV = 0.1;
+    turnMotorConfig.Slot0.kG = 0.24;
     turnMotorConfig.Slot0.kA = 0.0;
-    turnMotorConfig.Slot0.kP = 0.0;
-    turnMotorConfig.Slot0.kD = 0.0;
+    turnMotorConfig.Slot0.kP = 1.7;
+    turnMotorConfig.Slot0.kD = 0.2;
     turnMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-    turnMotorConfig.Feedback.SensorToMechanismRatio = 20.0;
     //
-    feedMotorConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
-    feedMotorConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
-    feedMotorConfig.Voltage.PeakForwardVoltage = 12.0;
-    feedMotorConfig.Voltage.PeakReverseVoltage = -12.0;
-    feedMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    feedMotorConfig_1.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
+    feedMotorConfig_1.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
+    feedMotorConfig_1.Voltage.PeakForwardVoltage = 12.0;
+    feedMotorConfig_1.Voltage.PeakReverseVoltage = -12.0;
+    feedMotorConfig_1.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    //
+    feedMotorConfig_2.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
+    feedMotorConfig_2.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
+    feedMotorConfig_2.Voltage.PeakForwardVoltage = 12.0;
+    feedMotorConfig_2.Voltage.PeakReverseVoltage = -12.0;
+    feedMotorConfig_2.MotionMagic.MotionMagicAcceleration = 45.0;
+    feedMotorConfig_2.MotionMagic.MotionMagicCruiseVelocity = 30.0;
+    feedMotorConfig_2.Slot0.kS = 0.22;
+    feedMotorConfig_2.Slot0.kV = 0.116;
+    feedMotorConfig_2.Slot0.kP = 0.5; // 不要改到0.6以上
+    feedMotorConfig_2.Slot0.kD = 0.0;
+    feedMotorConfig_2.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
     this.shotMotor = new TalonFX(15);
     this.feedMotor_2 = new TalonFX(16); // shooter上的滚筒
@@ -72,8 +84,8 @@ public class ShooterIOTalonFX implements ShooterIO {
 
     turnMotor.getConfigurator().apply(turnMotorConfig);
     shotMotor.getConfigurator().apply(shotMotorConfig);
-    feedMotor_1.getConfigurator().apply(feedMotorConfig);
-    feedMotor_2.getConfigurator().apply(feedMotorConfig);
+    feedMotor_1.getConfigurator().apply(feedMotorConfig_1);
+    feedMotor_2.getConfigurator().apply(feedMotorConfig_2);
   }
 
   @Override
@@ -84,6 +96,7 @@ public class ShooterIOTalonFX implements ShooterIO {
     inputs.shooterPosition = turnMotor.getPosition().getValueAsDouble();
     inputs.shotVelocitySetPoint = shotMotor.getClosedLoopReference().getValueAsDouble();
     inputs.feedVelSetpoint = feedMotor_2.getClosedLoopReference().getValueAsDouble();
+    inputs.positionSetPoint = turnMotor.getClosedLoopReference().getValueAsDouble();
   }
 
   @Override
@@ -104,5 +117,10 @@ public class ShooterIOTalonFX implements ShooterIO {
   @Override
   public void setFeeder_2Velocity(double velocity) {
     feedMotor_2.setControl(speedMMrequest.withVelocity(velocity));
+  }
+
+  @Override
+  public void zeroPos(double pos) {
+    turnMotor.setPosition(0.0);
   }
 }

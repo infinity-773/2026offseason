@@ -12,6 +12,7 @@ public interface ShooterIO {
     public double shooterPosition = 0.0;
     public double shotVelocitySetPoint = 0.0;
     public double feedVelSetpoint = 0.0;
+    public double positionSetPoint = 0.0;
   }
 
   public default void updateInputs(ShooterIOInputs inputs) {}
@@ -23,4 +24,6 @@ public interface ShooterIO {
   public default void setFeeder_2Velocity(double velocity) {}
 
   public default void setShooterPos(double position) {}
+
+  public default void zeroPos(double pos) {}
 }

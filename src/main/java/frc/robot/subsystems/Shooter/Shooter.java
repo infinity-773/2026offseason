@@ -18,6 +18,7 @@ public class Shooter extends SubsystemBase {
 
   public Shooter(ShooterIO io) {
     this.io = io;
+    io.zeroPos(0);
   }
 
   @Override
@@ -26,11 +27,11 @@ public class Shooter extends SubsystemBase {
     Logger.processInputs("shooter", inputs);
     // 更新飞轮是否达到设定速度
     double goalSpeed = inputs.shotVelocitySetPoint;
-    isAtGoalSpeed = speedDebouncer.calculate(Math.abs(goalSpeed - inputs.shooterVelocity) < 1);
+    isAtGoalSpeed = speedDebouncer.calculate(Math.abs(goalSpeed - inputs.shooterVelocity) < 2);
     Logger.recordOutput("Shooter/atGoalSpeed", isAtGoalSpeed);
     // 更新是否达到设定位置
-    double goalPos = goalPosSupplier.getAsDouble();
-    isAtGoalPos = posDebouncer.calculate(Math.abs(goalPos - inputs.shooterPosition) < 0.07);
+    double goalPos = inputs.positionSetPoint;
+    isAtGoalPos = posDebouncer.calculate(Math.abs(goalPos - inputs.shooterPosition) < 0.3);
     Logger.recordOutput("Shooter/atGoalPos", isAtGoalPos);
   }
 
