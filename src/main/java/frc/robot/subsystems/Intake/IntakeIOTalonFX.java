@@ -27,15 +27,15 @@ public class IntakeIOTalonFX implements IntakeIO {
   public IntakeIOTalonFX() {
     TalonFXConfiguration turnConfig = new TalonFXConfiguration();
     TalonFXConfiguration intakeConfig = new TalonFXConfiguration();
-    turnConfig.Slot0.kG = 1.16;
+    turnConfig.Slot0.kG = 1.2;
     turnConfig.Slot0.kS = 0.0;
     turnConfig.Slot0.kA = 0.0;
     turnConfig.Slot0.kV = 0.0;
-    turnConfig.Slot0.kP = 1;
+    turnConfig.Slot0.kP = 8.7;
     turnConfig.Slot0.kI = 0.0;
-    turnConfig.Slot0.kD = 0.0;
-    turnConfig.MotionMagic.MotionMagicCruiseVelocity = 2;
-    turnConfig.MotionMagic.MotionMagicAcceleration = 3;
+    turnConfig.Slot0.kD = 1.3;
+    turnConfig.MotionMagic.MotionMagicCruiseVelocity = 5;
+    turnConfig.MotionMagic.MotionMagicAcceleration = 5;
     turnConfig.Voltage.PeakForwardVoltage = 12.0;
     turnConfig.Voltage.PeakReverseVoltage = -12.0;
     turnConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
@@ -90,8 +90,8 @@ public class IntakeIOTalonFX implements IntakeIO {
     turnMotor.setPosition(position);
   }
 
-  @Override 
-  public void hold(double vol){
+  @Override
+  public void hold(double vol) {
     turnMotor.setControl(voltageRequest.withOutput(vol));
   }
 }
