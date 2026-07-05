@@ -30,58 +30,62 @@ public class ShooterIOTalonFX implements ShooterIO {
     TalonFXConfiguration feedMotorConfig_2 = new TalonFXConfiguration();
     TalonFXConfiguration turnMotorConfig = new TalonFXConfiguration();
     //
-    shotMotorConfig.MotionMagic.MotionMagicAcceleration = 55;
-    shotMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 55;
+    shotMotorConfig.MotionMagic.MotionMagicAcceleration = ShooterConstants.SHOT_MM_ACCELERATION;
+    shotMotorConfig.MotionMagic.MotionMagicCruiseVelocity =
+        ShooterConstants.SHOT_MM_CRUISE_VELOCITY;
     shotMotorConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     shotMotorConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
-    shotMotorConfig.Voltage.PeakForwardVoltage = 12.0;
-    shotMotorConfig.Voltage.PeakReverseVoltage = -12.0;
-    shotMotorConfig.Slot0.kS = 0.22;
-    shotMotorConfig.Slot0.kV = 0.115;
-    shotMotorConfig.Slot0.kA = 0.0;
-    shotMotorConfig.Slot0.kP = 0.15;
-    shotMotorConfig.Slot0.kD = 0.0;
+    shotMotorConfig.Voltage.PeakForwardVoltage = ShooterConstants.PEAK_FORWARD_VOLTAGE;
+    shotMotorConfig.Voltage.PeakReverseVoltage = ShooterConstants.PEAK_REVERSE_VOLTAGE;
+    shotMotorConfig.Slot0.kS = ShooterConstants.SHOT_KS;
+    shotMotorConfig.Slot0.kV = ShooterConstants.SHOT_KV;
+    shotMotorConfig.Slot0.kA = ShooterConstants.SHOT_KA;
+    shotMotorConfig.Slot0.kP = ShooterConstants.SHOT_KP;
+    shotMotorConfig.Slot0.kD = ShooterConstants.SHOT_KD;
     shotMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     //
-    turnMotorConfig.MotionMagic.MotionMagicAcceleration = 25;
-    turnMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 20;
-    turnMotorConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+    turnMotorConfig.MotionMagic.MotionMagicAcceleration = ShooterConstants.TURN_MM_ACCELERATION;
+    turnMotorConfig.MotionMagic.MotionMagicCruiseVelocity =
+        ShooterConstants.TURN_MM_CRUISE_VELOCITY;
+    turnMotorConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     turnMotorConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
-        2.1; // the max pos is about 2.47
-    turnMotorConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-    turnMotorConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = -0.3;
-    turnMotorConfig.Voltage.PeakForwardVoltage = 12.0;
-    turnMotorConfig.Voltage.PeakReverseVoltage = -12.0;
-    turnMotorConfig.Slot0.kS = 0.1;
-    turnMotorConfig.Slot0.kV = 0.1;
-    turnMotorConfig.Slot0.kG = 0.225;
-    turnMotorConfig.Slot0.kA = 0.0;
-    turnMotorConfig.Slot0.kP = 1.8;
-    turnMotorConfig.Slot0.kD = 0.2;
+        ShooterConstants.TURN_FORWARD_SOFT_LIMIT_THRESHOLD; // the max pos is about 2.47
+    turnMotorConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
+    turnMotorConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
+        ShooterConstants.TURN_REVERSE_SOFT_LIMIT_THRESHOLD;
+    turnMotorConfig.Voltage.PeakForwardVoltage = ShooterConstants.PEAK_FORWARD_VOLTAGE;
+    turnMotorConfig.Voltage.PeakReverseVoltage = ShooterConstants.PEAK_REVERSE_VOLTAGE;
+    turnMotorConfig.Slot0.kS = ShooterConstants.TURN_KS;
+    turnMotorConfig.Slot0.kV = ShooterConstants.TURN_KV;
+    turnMotorConfig.Slot0.kG = ShooterConstants.TURN_KG;
+    turnMotorConfig.Slot0.kA = ShooterConstants.TURN_KA;
+    turnMotorConfig.Slot0.kP = ShooterConstants.TURN_KP;
+    turnMotorConfig.Slot0.kD = ShooterConstants.TURN_KD;
     turnMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     //
     feedMotorConfig_1.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     feedMotorConfig_1.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
-    feedMotorConfig_1.Voltage.PeakForwardVoltage = 12.0;
-    feedMotorConfig_1.Voltage.PeakReverseVoltage = -12.0;
+    feedMotorConfig_1.Voltage.PeakForwardVoltage = ShooterConstants.PEAK_FORWARD_VOLTAGE;
+    feedMotorConfig_1.Voltage.PeakReverseVoltage = ShooterConstants.PEAK_REVERSE_VOLTAGE;
     feedMotorConfig_1.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     //
     feedMotorConfig_2.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     feedMotorConfig_2.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
-    feedMotorConfig_2.Voltage.PeakForwardVoltage = 12.0;
-    feedMotorConfig_2.Voltage.PeakReverseVoltage = -12.0;
-    feedMotorConfig_2.MotionMagic.MotionMagicAcceleration = 45.0;
-    feedMotorConfig_2.MotionMagic.MotionMagicCruiseVelocity = 30.0;
-    feedMotorConfig_2.Slot0.kS = 0.22;
-    feedMotorConfig_2.Slot0.kV = 0.116;
-    feedMotorConfig_2.Slot0.kP = 0.5; // 不要改到0.6以上
-    feedMotorConfig_2.Slot0.kD = 0.0;
+    feedMotorConfig_2.Voltage.PeakForwardVoltage = ShooterConstants.PEAK_FORWARD_VOLTAGE;
+    feedMotorConfig_2.Voltage.PeakReverseVoltage = ShooterConstants.PEAK_REVERSE_VOLTAGE;
+    feedMotorConfig_2.MotionMagic.MotionMagicAcceleration = ShooterConstants.FEED_2_MM_ACCELERATION;
+    feedMotorConfig_2.MotionMagic.MotionMagicCruiseVelocity =
+        ShooterConstants.FEED_2_MM_CRUISE_VELOCITY;
+    feedMotorConfig_2.Slot0.kS = ShooterConstants.FEED_2_KS;
+    feedMotorConfig_2.Slot0.kV = ShooterConstants.FEED_2_KV;
+    feedMotorConfig_2.Slot0.kP = ShooterConstants.FEED_2_KP; // 不要改到0.6以上
+    feedMotorConfig_2.Slot0.kD = ShooterConstants.FEED_2_KD;
     feedMotorConfig_2.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
-    this.shotMotor = new TalonFX(15);
-    this.feedMotor_2 = new TalonFX(16); // shooter上的滚筒
-    this.feedMotor_1 = new TalonFX(17); // feeder_1 底盘上的多组皮带
-    this.turnMotor = new TalonFX(18);
+    this.shotMotor = new TalonFX(ShooterConstants.SHOT_MOTOR_ID);
+    this.feedMotor_2 = new TalonFX(ShooterConstants.FEED_MOTOR_2_ID); // shooter上的滚筒
+    this.feedMotor_1 = new TalonFX(ShooterConstants.FEED_MOTOR_1_ID); // feeder_1 底盘上的多组皮带
+    this.turnMotor = new TalonFX(ShooterConstants.TURN_MOTOR_ID);
 
     turnMotor.getConfigurator().apply(turnMotorConfig);
     shotMotor.getConfigurator().apply(shotMotorConfig);
