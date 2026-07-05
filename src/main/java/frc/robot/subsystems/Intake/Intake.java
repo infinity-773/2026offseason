@@ -10,8 +10,9 @@ public class Intake extends SubsystemBase {
   private final IntakeIO io;
   private final IntakeIOInputsAutoLogged inputs = new IntakeIOInputsAutoLogged();
   private boolean isAtGoal = false;
-  private final Debouncer atGoalDebouncer = new Debouncer(0.1, DebounceType.kRising);
-  private final DoubleSupplier GoalPos = () -> 0.0;
+  private final Debouncer atGoalDebouncer = new Debouncer(0.2, DebounceType.kRising);
+  private final Debouncer shouldHoldDebouncer = new Debouncer(0.2, DebounceType.kRising);
+  private DoubleSupplier goalSupplier = () -> 0.0;
 
   public Intake(IntakeIO io) {
     this.io = io;
@@ -26,18 +27,20 @@ public class Intake extends SubsystemBase {
     Logger.processInputs("Intake", inputs);
 
     isAtGoal =
-        atGoalDebouncer.calculate(Math.abs(inputs.turnPosition - inputs.positionSetPoint) < 0.02);
+        atGoalDebouncer.calculate(
+            Math.abs(inputs.turnPosition - goalSupplier.getAsDouble()) < 0.08);
     Logger.recordOutput("Intake/atGoal", isAtGoal);
-    if (isAtGoal == true
-        && inputs.positionSetPoint == 0.0) { // do not run profiled PID when at intake
-      io.hold(-2); // TODO
+    if (isAtGoal) {
+      if (Math.abs(inputs.turnPosition) < 0.07) {
+        io.hold(-0.2);
+      }
     } else {
-      setPos(GoalPos.getAsDouble());
+      io.setPosition(goalSupplier.getAsDouble()); // TODO
     }
   }
 
-  private void setPos(double position) { // intake的位置大约在+2.0；
-    io.setPosition(position);
+  public void setPos(DoubleSupplier position) {
+    this.goalSupplier = position;
   }
 
   public void intake(double vol) {
@@ -47,11 +50,4 @@ public class Intake extends SubsystemBase {
   public boolean intakeAtGoal() {
     return this.isAtGoal;
   }
-
-  public void setIntakeRest() {
-    io.setPosition(1.0);
-    io.setVol(0.0);
-  }
-
-  public void zero() {}
 }
