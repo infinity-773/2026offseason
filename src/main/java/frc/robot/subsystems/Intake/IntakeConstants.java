@@ -13,17 +13,17 @@ public final class IntakeConstants {
 
   // ========== Turn Motor ==========
   // Gravity feedforward (Arm_Cosine mode)
-  public static final double TURN_KG = 1.16;
+  public static final double TURN_KG = 1.2;
   public static final double TURN_KS = 0.0;
   public static final double TURN_KV = 0.0;
   public static final double TURN_KA = 0.0;
-  public static final double TURN_KP = 1.0;
+  public static final double TURN_KP = 8.7;
   public static final double TURN_KI = 0.0;
-  public static final double TURN_KD = 0.0;
+  public static final double TURN_KD = 1.3;
 
   // Motion Magic
-  public static final double TURN_MM_CRUISE_VELOCITY = 2.0;
-  public static final double TURN_MM_ACCELERATION = 3.0;
+  public static final double TURN_MM_CRUISE_VELOCITY = 5.0;
+  public static final double TURN_MM_ACCELERATION = 5.0;
 
   // Gear ratio
   public static final double TURN_ROTOR_TO_SENSOR = 1.0; // 电机转子1转，传感器1转
