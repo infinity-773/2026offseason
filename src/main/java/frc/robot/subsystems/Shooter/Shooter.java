@@ -3,7 +3,6 @@ package frc.robot.subsystems.Shooter;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
 
 public class Shooter extends SubsystemBase {
@@ -14,8 +13,13 @@ public class Shooter extends SubsystemBase {
   public boolean readyFeed = false;
   public boolean startFeeder1 = false;
   private final Debouncer speedDebouncer = new Debouncer(0.2, DebounceType.kBoth);
-  private final Debouncer posDebouncer = new Debouncer(0.2, DebounceType.kBoth);//this will fall when shoot out.use Both!
-  private final Debouncer feedDebouncer = new Debouncer(0.2,DebounceType.kFalling);//avoid readyFeed falling when shoot cus bounce time is about 0.2~0.4;
+  private final Debouncer posDebouncer =
+      new Debouncer(0.2, DebounceType.kBoth); // this will fall when shoot out.use Both!
+  private final Debouncer feedDebouncer =
+      new Debouncer(
+          0.2,
+          DebounceType
+              .kFalling); // avoid readyFeed falling when shoot cus bounce time is about 0.2~0.4;
 
   public Shooter(ShooterIO io) {
     this.io = io;
@@ -34,10 +38,10 @@ public class Shooter extends SubsystemBase {
     double goalPos = inputs.positionSetPoint;
     isAtGoalPos = posDebouncer.calculate(Math.abs(goalPos - inputs.shooterPosition) < 0.3);
     Logger.recordOutput("Shooter/atGoalPos", isAtGoalPos);
-    //wait speed and pos to feed
+    // wait speed and pos to feed
     readyFeed = feedDebouncer.calculate(isAtGoalPos == true && isAtGoalSpeed == true);
     if (readyFeed == true && startFeeder1 == true) {
-       setFeeder_1Vol(6);
+      setFeeder_1Vol(ShooterConstants.FEEDER_1VOL);
     }
   }
 
@@ -49,7 +53,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void stop() {
-    setPos(0); 
+    setPos(0);
     setFeeder_2Velocity(0);
     setShootVelocity(0);
     startFeeder1 = false;

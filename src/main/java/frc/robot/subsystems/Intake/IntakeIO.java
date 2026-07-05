@@ -21,5 +21,5 @@ public interface IntakeIO {
 
   public default void resetPos(double position) {}
 
-  public default void hold(double vol){}
+  public default void hold(double vol) {}
 }

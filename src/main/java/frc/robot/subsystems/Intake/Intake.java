@@ -28,9 +28,10 @@ public class Intake extends SubsystemBase {
     isAtGoal =
         atGoalDebouncer.calculate(Math.abs(inputs.turnPosition - inputs.positionSetPoint) < 0.02);
     Logger.recordOutput("Intake/atGoal", isAtGoal);
-    if (isAtGoal == true && inputs.positionSetPoint == 0.0) {// do not run profiled PID when at intake 
-      io.hold(-2);//TODO
-    }else{
+    if (isAtGoal == true
+        && inputs.positionSetPoint == 0.0) { // do not run profiled PID when at intake
+      io.hold(-2); // TODO
+    } else {
       setPos(GoalPos.getAsDouble());
     }
   }
@@ -52,7 +53,5 @@ public class Intake extends SubsystemBase {
     io.setVol(0.0);
   }
 
-  public void zero(){
-    
-  }
+  public void zero() {}
 }
