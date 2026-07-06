@@ -56,7 +56,7 @@ public class ShooterIOTalonFX implements ShooterIO {
     turnMotorConfig.Slot0.kV = 0.1;
     turnMotorConfig.Slot0.kG = 0.225;
     turnMotorConfig.Slot0.kA = 0.0;
-    turnMotorConfig.Slot0.kP = 1.8;
+    turnMotorConfig.Slot0.kP = 1.5;
     turnMotorConfig.Slot0.kD = 0.2;
     turnMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     //
