@@ -16,9 +16,7 @@ public class Intake extends SubsystemBase {
 
   public Intake(IntakeIO io) {
     this.io = io;
-    io.resetPos(0);
-
-    // setIntakeRest();
+    io.resetPos(0.325);
   }
 
   @Override
@@ -28,11 +26,11 @@ public class Intake extends SubsystemBase {
 
     isAtGoal =
         atGoalDebouncer.calculate(
-            Math.abs(inputs.turnPosition - goalSupplier.getAsDouble()) < 0.08);
+            Math.abs(inputs.turnPosition - goalSupplier.getAsDouble()) < 0.05);
     Logger.recordOutput("Intake/atGoal", isAtGoal);
     if (isAtGoal) {
-      if (Math.abs(inputs.turnPosition) < 0.07) {
-        io.hold(-0.2);
+      if (Math.abs(inputs.turnPosition) < 0.05) {
+        io.hold(-0.3);
       }
     } else {
       io.setPosition(goalSupplier.getAsDouble()); // TODO

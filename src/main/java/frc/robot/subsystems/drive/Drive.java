@@ -214,7 +214,7 @@ public class Drive extends SubsystemBase {
    *
    * @param speeds Speeds in meters/sec
    */
-  public void runVelocity(ChassisSpeeds speeds) {//TODO : 是否使用swerveSetPointGenerater?
+  public void runVelocity(ChassisSpeeds speeds) { // TODO : 是否使用swerveSetPointGenerater?
     // Calculate module setpoints
     ChassisSpeeds discreteSpeeds = ChassisSpeeds.discretize(speeds, 0.02);
     SwerveModuleState[] setpointStates = kinematics.toSwerveModuleStates(discreteSpeeds);

@@ -1,31 +1,29 @@
 // Copyright (c) 2025 FRC 6907, The G.O.A.T
 package frc.robot.subsystems.vision;
 
-import static frc.robot.subsystems.vision.VisionConstants.aprilTagLayout;
-
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform3d;
-import frc.robot.Constants;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 
 public class VisionConstants {
-  public static AprilTagFieldLayout aprilTagLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltAndymark);//TODO
+  public static AprilTagFieldLayout aprilTagLayout =
+      AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltAndymark); // TODO:使用季后赛场地
 
   // ================== Constants ========================
   public static String camera0Name = "shooterCenter";
-  //public static String camera1Name = "effectorRight";
-  //public static String camera2Name = "effectorCenter";
+  // public static String camera1Name = "effectorRight";
+  // public static String camera2Name = "effectorCenter";
 
   // Robot to camera transforms
   // (Not used by Limelight, configure in web UI instead)
   public static Transform3d robotToCamera0 =
-      new Transform3d(0.32, 0.29, 0.25, new Rotation3d(0.0, -5 * (Math.PI / 180), -0.43633));//TODO
-  //public static Transform3d robotToCamera1 =
-      //new Transform3d(0.32, -0.29, 0.25, new Rotation3d(0.0, -5 * (Math.PI / 180), 0.43633));
-  //public static Transform3d robotToCamera2 =
-      //new Transform3d(0.28, 0.0, 0.17, new Rotation3d(0.0, -30 * (Math.PI / 180), 0.0)); // 50
+      new Transform3d(
+          0.32, 0.29, 0.25, new Rotation3d(0.0, -5 * (Math.PI / 180), -0.43633)); // TODO:测量真实数据
+  // public static Transform3d robotToCamera1 =
+  // new Transform3d(0.32, -0.29, 0.25, new Rotation3d(0.0, -5 * (Math.PI / 180), 0.43633));
+  // public static Transform3d robotToCamera2 =
+  // new Transform3d(0.28, 0.0, 0.17, new Rotation3d(0.0, -30 * (Math.PI / 180), 0.0)); // 50
 
   // Filtering constants
   public static final double ACCEPTABLE_AMBIGUITY_THRESHOLD = 0.1;

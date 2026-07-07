@@ -16,12 +16,12 @@ public final class ShooterConstants {
   public static final int TURN_MOTOR_ID = 18;
 
   // ========== Shot Motor ==========
-  public static final double SHOT_MM_ACCELERATION = 55.0;
-  public static final double SHOT_MM_CRUISE_VELOCITY = 55.0;
+  public static final double SHOT_MM_ACCELERATION = 60.0;
+  public static final double SHOT_MM_CRUISE_VELOCITY = 60.0;
   public static final double SHOT_KS = 0.22;
   public static final double SHOT_KV = 0.115;
   public static final double SHOT_KA = 0.0;
-  public static final double SHOT_KP = 0.15;
+  public static final double SHOT_KP = 0.2;
   public static final double SHOT_KD = 0.0;
 
   // ========== Turn Motor  ==========
