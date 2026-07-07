@@ -18,6 +18,9 @@ public class ShooterCommands extends Command {
   }
 
   @Override
+  public void initialize() {}
+
+  @Override
   public void execute() {
     translation2d = drive.getPose().getTranslation();
     double vel =

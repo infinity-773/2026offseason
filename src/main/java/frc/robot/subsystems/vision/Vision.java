@@ -1,16 +1,12 @@
 // Copyright (c) 2025 FRC 6907, The G.O.A.T
 package frc.robot.subsystems.vision;
 
-import static edu.wpi.first.units.Units.Degree;
-import static edu.wpi.first.units.Units.Radian;
 import static frc.robot.subsystems.vision.VisionConstants.*;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
@@ -23,13 +19,12 @@ import frc.robot.subsystems.vision.VisionIO.PoseObservation;
 import frc.robot.subsystems.vision.VisionIO.PoseObservationType;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
 public class Vision extends SubsystemBase {
   private final VisionConsumer consumer;
   private final VisionIO[] io;
-  //private final Supplier<Translation2d> velocitySupplier;
+  // private final Supplier<Translation2d> velocitySupplier;
 
   private final VisionIOInputsAutoLogged[] inputs;
   private final Alert[] disconnectedAlerts;
@@ -42,7 +37,7 @@ public class Vision extends SubsystemBase {
   public Vision(VisionConsumer consumer, VisionIO... io) {
     this.consumer = consumer;
     this.io = io;
-    //this.velocitySupplier = velocitySupplier;
+    // this.velocitySupplier = velocitySupplier;
 
     // Initialize inputs
     this.inputs = new VisionIOInputsAutoLogged[io.length];
@@ -181,7 +176,7 @@ public class Vision extends SubsystemBase {
             && obs.type() == PoseObservationType.PHOTONVISION)) {
           angularStdDev *= 2.0;
         }
-        
+
         if (cameraIndex < cameraStdDevFactors.length) {
           linearStdDev *= cameraStdDevFactors[cameraIndex];
           angularStdDev *= cameraStdDevFactors[cameraIndex];
@@ -218,8 +213,7 @@ public class Vision extends SubsystemBase {
     public void accept(
         Pose2d visionRobotPoseMeters,
         double timestampSeconds,
-        Matrix<N3, N1> visionMeasurementStdDevs
-        );
+        Matrix<N3, N1> visionMeasurementStdDevs);
   }
 
   private void recordLogs(
@@ -240,6 +234,4 @@ public class Vision extends SubsystemBase {
         "Vision/Camera" + cameraIndex + "/RobotPosesRejected",
         cameraPosesRejected.toArray(new Pose3d[0]));
   }
-
-  
 }
