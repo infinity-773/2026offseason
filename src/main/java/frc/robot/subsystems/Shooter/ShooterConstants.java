@@ -1,5 +1,7 @@
 package frc.robot.subsystems.Shooter;
 
+import edu.wpi.first.math.geometry.Translation2d;
+
 /**
  * Constants for the Shooter subsystem, including CAN IDs, PID/FF gains, Motion Magic parameters,
  * and soft limit thresholds.
@@ -7,6 +9,9 @@ package frc.robot.subsystems.Shooter;
 public final class ShooterConstants {
   // Shooter
   public static final double FEEDER_1VOL = 6;
+  public static final double SHOOTER_POS = 0;
+  public static final Translation2d GOAL = new Translation2d(0, 0);
+  public static final double G = 9.8;
 
   // ShooterIOTalonFX
   // ========== CAN IDs ==========
