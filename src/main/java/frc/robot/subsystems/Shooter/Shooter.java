@@ -23,7 +23,7 @@ public class Shooter extends SubsystemBase {
 
   public Shooter(ShooterIO io) {
     this.io = io;
-    io.zeroPos(0);
+    io.zeroPos(0.0);
   }
 
   @Override
@@ -45,16 +45,17 @@ public class Shooter extends SubsystemBase {
             isAtGoalPos == true && isAtGoalSpeed == true && inputs.shotVelocitySetPoint != 0);
 
     if (readyFeed == true && startFeeder1 == true) {
-      setFeeder_1Vol(ShooterConstants.FEEDER_1VOL);
+      setFeeder_1Vol(6); // TODO:改进该数值
+      setFeeder_2Velocity(40); // TODO:改进该数值
     } else {
       setFeeder_1Vol(0);
+      setFeeder_2Velocity(0);
     }
     Logger.recordOutput("Shooter/readFeed", readyFeed);
   }
 
-  public void shoot(double Pos, double Feeder_Vel, double Shoot_Vel) {
+  public void shoot(double Pos, double Shoot_Vel) {
     setPos(Pos); // 0.9 max
-    setFeeder_2Velocity(Feeder_Vel);
     setShootVelocity(Shoot_Vel);
     startFeeder1 = true;
   }
@@ -80,5 +81,9 @@ public class Shooter extends SubsystemBase {
 
   private void setFeeder_2Velocity(double velocity) {
     io.setFeeder_2Velocity(velocity);
+  }
+
+  public void zeroPos(double pos) {
+    io.zeroPos(pos);
   }
 }

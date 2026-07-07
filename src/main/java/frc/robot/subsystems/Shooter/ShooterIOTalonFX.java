@@ -126,6 +126,6 @@ public class ShooterIOTalonFX implements ShooterIO {
 
   @Override
   public void zeroPos(double pos) {
-    turnMotor.setPosition(0.0);
+    turnMotor.setPosition(pos);
   }
 }

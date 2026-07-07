@@ -47,7 +47,7 @@ public class RobotContainer {
   private final Drive drive;
   private final Intake intake;
   private final Shooter shooter;
-  private final Vision vision;
+  // private final Vision vision;
 
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
@@ -75,6 +75,11 @@ public class RobotContainer {
                 drive::addVisionMeasurement,
                 new VisionIOPhotonVision(
                     VisionConstants.camera0Name, VisionConstants.robotToCamera0));
+        // vision =
+        // new Vision(
+        // drive::addVisionMeasurement,
+        //  new VisionIOPhotonVision(
+        //     VisionConstants.camera0Name, VisionConstants.robotToCamera0));
 
         intake = new Intake(new IntakeIOTalonFX());
         shooter = new Shooter(new ShooterIOTalonFX());
@@ -90,6 +95,7 @@ public class RobotContainer {
                 new ModuleIOSim(TunerConstants.BackLeft),
                 new ModuleIOSim(TunerConstants.BackRight));
         vision = new Vision(drive::addVisionMeasurement, new VisionIO() {});
+        // vision = new Vision(drive::addVisionMeasurement, new VisionIO() {});
         intake = new Intake(new IntakeIO() {});
         shooter = new Shooter(new ShooterIO() {});
         break;
@@ -104,6 +110,7 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {});
         vision = new Vision(drive::addVisionMeasurement, new VisionIO() {});
+        // vision = new Vision(drive::addVisionMeasurement, new VisionIO() {});
         intake = new Intake(new IntakeIO() {});
         shooter = new Shooter(new ShooterIO() {});
         break;
@@ -176,7 +183,7 @@ public class RobotContainer {
         .onTrue(
             Commands.runOnce(
                 () -> {
-                  intake.intake(0);
+                  intake.intake(6);
                   intake.setPos(() -> 0.0);
                 }))
         .onFalse(
@@ -191,7 +198,7 @@ public class RobotContainer {
         .onTrue(
             Commands.runOnce(
                 () -> {
-                  shooter.shoot(0.4, 30, 60);
+                  shooter.shoot(0.2, 60);
                 }))
         .onFalse(
             Commands.runOnce(
