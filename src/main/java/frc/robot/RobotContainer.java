@@ -8,6 +8,8 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -47,7 +49,7 @@ public class RobotContainer {
   private final Drive drive;
   private final Intake intake;
   private final Shooter shooter;
-  // private final Vision vision;
+  private final Vision vision;
 
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
@@ -118,6 +120,9 @@ public class RobotContainer {
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
+    
+    // Register named commands for PathPlanner
+    // NamedCommands.registerCommand("someOtherCommand", new SomeOtherCommand());
 
     // Set up SysId routines
     autoChooser.addOption(
@@ -213,6 +218,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoChooser.get();
+
+    return new PathPlannerAuto("Test");
   }
 }
