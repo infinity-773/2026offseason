@@ -45,10 +45,8 @@ public class Shooter extends SubsystemBase {
             isAtGoalPos == true && isAtGoalSpeed == true && inputs.shotVelocitySetPoint != 0);
 
     if (readyFeed == true && startFeeder1 == true) {
-      setFeeder_1Vol(6); // TODO:改进该数值
       setFeeder_2Velocity(40); // TODO:改进该数值
     } else {
-      setFeeder_1Vol(0);
       setFeeder_2Velocity(0);
     }
     Logger.recordOutput("Shooter/readFeed", readyFeed);
@@ -57,6 +55,7 @@ public class Shooter extends SubsystemBase {
   public void shoot(double Pos, double Shoot_Vel) {
     setPos(Pos); // 0.9 max
     setShootVelocity(Shoot_Vel);
+    setFeeder_1Vol(4);
     startFeeder1 = true;
   }
 
@@ -64,6 +63,7 @@ public class Shooter extends SubsystemBase {
     setPos(0);
     setFeeder_2Velocity(0);
     setShootVelocity(0);
+    setFeeder_1Vol(0);
     startFeeder1 = false;
   }
 

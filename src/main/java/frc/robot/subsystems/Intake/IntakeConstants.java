@@ -13,11 +13,11 @@ public final class IntakeConstants {
 
   // ========== Turn Motor ==========
   // Gravity feedforward (Arm_Cosine mode)
-  public static final double TURN_KG = 1.2;
-  public static final double TURN_KS = 0.0;
-  public static final double TURN_KV = 0.0;
+  public static final double TURN_KG = 1.23;
+  public static final double TURN_KS = 0.2;
+  public static final double TURN_KV = 0.3;
   public static final double TURN_KA = 0.0;
-  public static final double TURN_KP = 8.7;
+  public static final double TURN_KP = 8.8;
   public static final double TURN_KI = 0.0;
   public static final double TURN_KD = 1.3;
 

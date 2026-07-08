@@ -26,11 +26,11 @@ public class Intake extends SubsystemBase {
 
     isAtGoal =
         atGoalDebouncer.calculate(
-            Math.abs(inputs.turnPosition - goalSupplier.getAsDouble()) < 0.05);
+            Math.abs(inputs.turnPosition - goalSupplier.getAsDouble()) < 0.06);
     Logger.recordOutput("Intake/atGoal", isAtGoal);
     if (isAtGoal) {
-      if (Math.abs(inputs.turnPosition) < 0.05) {
-        io.hold(-0.3);
+      if (Math.abs(inputs.turnPosition) < 0.06) {
+        io.hold(-0.4);
       }
     } else {
       io.setPosition(goalSupplier.getAsDouble()); // TODO

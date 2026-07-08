@@ -35,11 +35,11 @@ public final class ShooterConstants {
   public static final double TURN_FORWARD_SOFT_LIMIT_THRESHOLD = 2.1; // max pos ≈ 2.47
   public static final double TURN_REVERSE_SOFT_LIMIT_THRESHOLD = -0.3;
   public static final double TURN_KS = 0.1;
-  public static final double TURN_KV = 0.1;
-  public static final double TURN_KG = 0.225;
+  public static final double TURN_KV = 0.3;
+  public static final double TURN_KG = 0.23;
   public static final double TURN_KA = 0.0;
-  public static final double TURN_KP = 1.5;
-  public static final double TURN_KD = 0.2;
+  public static final double TURN_KP = 1.8;
+  public static final double TURN_KD = 0.3;
 
   // ========== Feed Motor 2  ==========
   public static final double FEED_2_MM_ACCELERATION = 45.0;
