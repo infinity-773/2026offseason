@@ -8,7 +8,6 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -120,7 +119,7 @@ public class RobotContainer {
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
-    
+
     // Register named commands for PathPlanner
     // NamedCommands.registerCommand("someOtherCommand", new SomeOtherCommand());
 
@@ -139,6 +138,7 @@ public class RobotContainer {
         "Drive SysId (Dynamic Forward)", drive.sysIdDynamic(SysIdRoutine.Direction.kForward));
     autoChooser.addOption(
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
+    autoChooser.addOption("PP Test Auto 1", new PathPlannerAuto("Test"));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -219,6 +219,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
-    return new PathPlannerAuto("Test");
+    return autoChooser.get();
   }
 }
