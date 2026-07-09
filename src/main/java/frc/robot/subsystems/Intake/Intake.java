@@ -16,7 +16,7 @@ public class Intake extends SubsystemBase {
 
   public Intake(IntakeIO io) {
     this.io = io;
-    io.resetPos(0.325);
+    io.resetPos(0.0);
   }
 
   @Override

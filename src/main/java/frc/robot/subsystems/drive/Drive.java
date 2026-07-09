@@ -47,7 +47,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
-import frc.robot.lib6907.ChassisSpeedKalmanFilterSimplified;
 
 public class Drive extends SubsystemBase {
   // TunerConstants doesn't include these constants, so they are declared locally
@@ -63,8 +62,8 @@ public class Drive extends SubsystemBase {
               Math.hypot(TunerConstants.BackRight.LocationX, TunerConstants.BackRight.LocationY)));
 
   // PathPlanner config constants
-  private static final double ROBOT_MASS_KG = 74.088;
-  private static final double ROBOT_MOI = 6.883;
+  private static final double ROBOT_MASS_KG = 56.000;
+  private static final double ROBOT_MOI = 6.743;
   private static final double WHEEL_COF = 1.2;
   private static final RobotConfig PP_CONFIG =
       new RobotConfig(
@@ -100,7 +99,7 @@ public class Drive extends SubsystemBase {
   private SwerveDrivePoseEstimator poseEstimator =
       new SwerveDrivePoseEstimator(kinematics, rawGyroRotation, lastModulePositions, Pose2d.kZero);
 
-  //private final ChassisSpeedKalmanFilterSimplified mSpeedFilter;
+  // private final ChassisSpeedKalmanFilterSimplified mSpeedFilter;
 
   public Drive(
       GyroIO gyroIO,
@@ -151,8 +150,8 @@ public class Drive extends SubsystemBase {
                 (state) -> Logger.recordOutput("Drive/SysIdState", state.toString())),
             new SysIdRoutine.Mechanism(
                 (voltage) -> runCharacterization(voltage.in(Volts)), null, this));
-    
-    //mSpeedFilter = new ChassisSpeedKalmanFilterSimplified(0.4, 0.4, 0.02);
+
+    // mSpeedFilter = new ChassisSpeedKalmanFilterSimplified(0.4, 0.4, 0.02);
   }
 
   @Override
