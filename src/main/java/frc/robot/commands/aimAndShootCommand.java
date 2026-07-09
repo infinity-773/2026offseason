@@ -102,6 +102,7 @@ public class aimAndShootCommand extends Command {
         Rotation2d.fromRadians(thetaController.getSetpoint().position));
     Logger.recordOutput("aimAndShootCommad/fuelStationPose", new Pose2d(targetPoint, goalRotation));
     Logger.recordOutput("aimAndShootCommad/goalRotation", goalRotation);
+    Logger.recordOutput("aimAndShootCommad/shooterVelocity", vel);
   }
 
   private boolean ifBlue() {
