@@ -27,7 +27,7 @@ public class ShooterCommands extends Command {
         Math.sqrt(
             translation2d.getDistance(ShooterConstants.GOAL)
                 * (ShooterConstants.G / Math.sin(2 * ShooterConstants.SHOOTER_POS)));
-    shooter.shoot(ShooterConstants.SHOOTER_POS, ShooterConstants.FEEDER_1VOL, vel);
+    shooter.shoot(ShooterConstants.SHOOTER_POS, vel);
   }
 
   @Override
