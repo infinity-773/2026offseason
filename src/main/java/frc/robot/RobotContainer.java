@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.DriveToShootPoseCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Intake.IntakeIO;
@@ -153,11 +154,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Default command, normal field-relative drive
     drive.setDefaultCommand(
-        DriveCommands.joystickDrive(
+        DriveCommands.joystickDriveWithLim(
             drive,
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(),
-            () -> +controller.getLeftTriggerAxis() - controller.getRightTriggerAxis()));
+            () -> -controller.getLeftTriggerAxis() + controller.getRightTriggerAxis(),
+            () -> 0.8));
 
     // Lock to 0° when A button is held
     // controller
@@ -188,28 +190,39 @@ public class RobotContainer {
         .onTrue(
             Commands.runOnce(
                 () -> {
-                  intake.intake(6);
-                  intake.setPos(() -> 0.0);
+                  intake.intake(4);
+                  // intake.setPos(() -> 0.0);
                 }))
         .onFalse(
             Commands.runOnce(
                 () -> {
                   intake.intake(0);
-                  intake.setPos(() -> 0.3);
-                }));
+                  // intake.setPos(() -> 0.24);
+                }))
+        .whileTrue(
+            DriveCommands.joystickDriveWithLim(
+                drive,
+                () -> -controller.getLeftY(),
+                () -> -controller.getLeftX(),
+                () -> -controller.getLeftTriggerAxis() + controller.getRightTriggerAxis(),
+                () -> 0.4));
 
     controller
         .a()
         .onTrue(
             Commands.runOnce(
                 () -> {
-                  shooter.shoot(0.2, 60);
+                  shooter.shoot(0.4, 60);
+                  intake.setPos(() -> 0.24);
                 }))
         .onFalse(
             Commands.runOnce(
                 () -> {
                   shooter.stop();
+                  intake.setPos(() -> 0.0);
                 }));
+
+    controller.rightBumper().whileTrue(new DriveToShootPoseCommand(drive));
   }
 
   /**

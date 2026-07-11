@@ -60,11 +60,13 @@ public class DriveCommands {
   /**
    * Field relative drive command using two joysticks (controlling linear and angular velocities).
    */
-  public static Command joystickDrive(
+  public static Command joystickDriveWithLim(
       Drive drive,
       DoubleSupplier xSupplier,
       DoubleSupplier ySupplier,
-      DoubleSupplier omegaSupplier) {
+      DoubleSupplier omegaSupplier,
+      DoubleSupplier maxSpeedSupplier) { // must use Supplier here
+
     return Commands.run(
         () -> {
           // Get linear velocity
@@ -80,8 +82,12 @@ public class DriveCommands {
           // Convert to field relative speeds & send command
           ChassisSpeeds speeds =
               new ChassisSpeeds(
-                  linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec() * 0.3,
-                  linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec() * 0.3,
+                  linearVelocity.getX()
+                      * drive.getMaxLinearSpeedMetersPerSec()
+                      * maxSpeedSupplier.getAsDouble(),
+                  linearVelocity.getY()
+                      * drive.getMaxLinearSpeedMetersPerSec()
+                      * maxSpeedSupplier.getAsDouble(),
                   omega * drive.getMaxAngularSpeedRadPerSec() * 0.3);
           boolean isFlipped =
               DriverStation.getAlliance().isPresent()

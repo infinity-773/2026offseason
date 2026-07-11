@@ -17,9 +17,9 @@ public class Shooter extends SubsystemBase {
       new Debouncer(0.2, DebounceType.kRising); // this will fall when shoot out.use Both!
   private final Debouncer feedDebouncer =
       new Debouncer(
-          0.2,
+          1,
           DebounceType
-              .kBoth); // avoid readyFeed falling when shoot cus bounce time is about 0.2~0.4;
+              .kFalling); // avoid readyFeed falling when shoot cus bounce time is about 0.2~0.4;
 
   public Shooter(ShooterIO io) {
     this.io = io;
@@ -55,7 +55,7 @@ public class Shooter extends SubsystemBase {
   public void shoot(double Pos, double Shoot_Vel) {
     setPos(Pos); // 0.9 max
     setShootVelocity(Shoot_Vel);
-    setFeeder_1Vol(4);
+    setFeeder_1Vol(3);
     startFeeder1 = true;
   }
 
