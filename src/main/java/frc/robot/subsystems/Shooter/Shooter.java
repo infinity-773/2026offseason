@@ -32,12 +32,12 @@ public class Shooter extends SubsystemBase {
     Logger.processInputs("shooter", inputs);
     // 更新飞轮是否达到设定速度
     double goalSpeed = inputs.shotVelocitySetPoint;
-    isAtGoalSpeed = speedDebouncer.calculate(Math.abs(goalSpeed - inputs.shooterVelocity) < 2);
+    isAtGoalSpeed = speedDebouncer.calculate(Math.abs(goalSpeed - inputs.shooterVelocity) < ShooterConstants.IS_AT_GOAL_SPEED_TOLERANCE);
     Logger.recordOutput("Shooter/atGoalSpeed", isAtGoalSpeed);
     // 更新是否达到设定位置
     double goalPos = inputs.positionSetPoint;
     isAtGoalPos =
-        posDebouncer.calculate(Math.abs(goalPos - inputs.shooterPosition) < 0.02); // 未设置齿轮比
+        posDebouncer.calculate(Math.abs(goalPos - inputs.shooterPosition) < ShooterConstants.IS_AT_GOAL_POS_TOLERANCE);
     Logger.recordOutput("Shooter/atGoalPos", isAtGoalPos);
     // wait speed and pos to feed
     readyFeed =
@@ -45,7 +45,7 @@ public class Shooter extends SubsystemBase {
             isAtGoalPos == true && isAtGoalSpeed == true && inputs.shotVelocitySetPoint != 0);
 
     if (readyFeed == true && startFeeder1 == true) {
-      setFeeder_2Velocity(40); // TODO:改进该数值
+      setFeeder_2Velocity(ShooterConstants.FEEDER_2VELOCITY); // TODO:改进该数值
     } else {
       setFeeder_2Velocity(0);
     }
@@ -55,7 +55,7 @@ public class Shooter extends SubsystemBase {
   public void shoot(double Pos, double Shoot_Vel) {
     setPos(Pos); // 0.9 max
     setShootVelocity(Shoot_Vel);
-    setFeeder_1Vol(3);
+    setFeeder_1Vol(ShooterConstants.FEEDER_1VOL);
     startFeeder1 = true;
   }
 

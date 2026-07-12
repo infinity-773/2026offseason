@@ -8,10 +8,14 @@ import edu.wpi.first.math.geometry.Translation2d;
  */
 public final class ShooterConstants {
   // Shooter
-  public static final double FEEDER_1VOL = 6;
+  public static final double FEEDER_1VOL = 4;
+  public static final double FEEDER_2VELOCITY = 40;
   public static final double SHOOTER_POS = 0;
   public static final Translation2d GOAL = new Translation2d(0, 0);
   public static final double G = 9.8;
+
+  public static final double IS_AT_GOAL_SPEED_TOLERANCE = 2;
+  public static final double IS_AT_GOAL_POS_TOLERANCE = 0.02;
 
   // ShooterIOTalonFX
   // ========== CAN IDs ==========
