@@ -33,7 +33,7 @@ public class DriveToShootPoseCommand extends Command {
   private double driveErrorAbs = 0.0;
   private Translation2d lastSetpointTranslation = new Translation2d();
 
-  private final double DISTANCE_1 = 3;
+  private final double DISTANCE_1 = 2.3;
 
   public DriveToShootPoseCommand(Drive drive) {
     // this.shooter = shooter;
@@ -75,7 +75,7 @@ public class DriveToShootPoseCommand extends Command {
                 .getX()));
 
     thetaController.setTolerance(Units.degreesToRadians(1.0));
-    driveController.setTolerance(0.01);
+    driveController.setTolerance(0.03);
 
     lastSetpointTranslation = currentPose.getTranslation();
   }
@@ -106,18 +106,18 @@ public class DriveToShootPoseCommand extends Command {
                 currentPose.getRotation().getRadians(), goalRotation.getRadians());
 
     // ===========================================计算底盘平移速度========================//
-    Translation2d driveGaolPoint = createPointOnLine(currentPose, targetPoint,DISTANCE_1);
-    double currentDistance =
-        currentPose.getTranslation().getDistance(driveGaolPoint);
+    Translation2d driveGaolPoint = createPointOnLine(currentPose, targetPoint, DISTANCE_1);
+    double currentDistance = currentPose.getTranslation().getDistance(driveGaolPoint);
 
     // use a small feedforward scaler if distance to target is small （0.10-0.15m？)
-    double ffScaler = MathUtil.clamp((currentDistance - 0.1) / (0.05), 0.0, 1.0);
+    double ffScaler = MathUtil.clamp((currentDistance) / (0.1), 0.0, 1.0);
     driveErrorAbs = currentDistance;
 
     // reset integral term which we don't need, the setpoint should not change because we pass in
     // the same value
     driveController.reset(
-        lastSetpointTranslation.getDistance(driveGaolPoint), driveController.getSetpoint().velocity);
+        lastSetpointTranslation.getDistance(driveGaolPoint),
+        driveController.getSetpoint().velocity);
 
     double driveVelocityScalar =
         driveController.getSetpoint().velocity * ffScaler
@@ -143,7 +143,8 @@ public class DriveToShootPoseCommand extends Command {
             .getTranslation();
 
     Translation2d driveVelocity =
-        new Pose2d(new Translation2d(), currentPose.getTranslation().minus(driveGaolPoint).getAngle())
+        new Pose2d(
+                new Translation2d(), currentPose.getTranslation().minus(driveGaolPoint).getAngle())
             .transformBy(new Transform2d(driveVelocityScalar, 0.0, new Rotation2d()))
             .getTranslation();
 
@@ -155,15 +156,18 @@ public class DriveToShootPoseCommand extends Command {
     // =========================command drive========================//
     drive.runVelocity(
         ChassisSpeeds.fromFieldRelativeSpeeds(
-            driveVelocity.getX(), driveVelocity.getY(), thetaVelocity, currentPose.getRotation()));
+            driveVelocity.getX(), driveVelocity.getY(), -thetaVelocity, currentPose.getRotation()));
 
     // =======log states=======//
-    Logger.recordOutput("aimAndShootCommad/ThetaMeasured", currentPose.getRotation());
+
     Logger.recordOutput(
-        "aimAndShootCommad/ThetaSetpoint",
-        Rotation2d.fromRadians(thetaController.getSetpoint().position));
-    Logger.recordOutput("aimAndShootCommad/fuelStationPose", new Pose2d(targetPoint, goalRotation));
-    Logger.recordOutput("aimAndShootCommad/goalRotation", goalRotation);
+        "DriveToPoseCommand/fuelStationPose", new Pose2d(targetPoint, goalRotation));
+    Logger.recordOutput("DriveToPoseCommand/GoalPose", new Pose2d(driveGaolPoint, goalRotation));
+    Logger.recordOutput(
+        "DriveToPoseCommand/currentSetPoint",
+        new Pose2d(
+            lastSetpointTranslation,
+            Rotation2d.fromRadians(thetaController.getSetpoint().position)));
   }
 
   private boolean ifBlue() {
@@ -176,23 +180,19 @@ public class DriveToShootPoseCommand extends Command {
     return Goal;
   }
 
-  public Translation2d createPointOnLine(
-    Pose2d robotPos, 
-    Translation2d targetPos, 
-    double radius
-) {
+  private Translation2d createPointOnLine(Pose2d robotPos, Translation2d targetPos, double radius) {
     // 计算从目标指向机器人的向量
     Translation2d direction = robotPos.getTranslation().minus(targetPos);
-    
+
     // 计算当前距离
     double currentDist = direction.getNorm();
-    
+
     // 计算单位向量
     Translation2d unitVector = direction.div(currentDist);
-    
+
     // 计算目标点：B + unitVector * radius
     return targetPos.plus(unitVector.times(radius));
-}
+  }
 
   @Override
   public void end(boolean interrupted) {
