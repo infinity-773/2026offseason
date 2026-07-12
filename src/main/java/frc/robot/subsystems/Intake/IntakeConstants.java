@@ -7,7 +7,7 @@ package frc.robot.subsystems.Intake;
 public final class IntakeConstants {
   private IntakeConstants() {} // Utility class, prevent instantiation
 
-  //Intake
+  // Intake
   public static final double IS_AT_GOAL_TOLERANCE = 0.06;
 
   // ========== CAN IDs ==========

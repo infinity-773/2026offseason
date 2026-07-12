@@ -26,7 +26,8 @@ public class Intake extends SubsystemBase {
 
     isAtGoal =
         atGoalDebouncer.calculate(
-            Math.abs(inputs.turnPosition - goalSupplier.getAsDouble()) < IntakeConstants.IS_AT_GOAL_TOLERANCE);
+            Math.abs(inputs.turnPosition - goalSupplier.getAsDouble())
+                < IntakeConstants.IS_AT_GOAL_TOLERANCE);
     Logger.recordOutput("Intake/atGoal", isAtGoal);
     if (isAtGoal) {
       if (Math.abs(inputs.turnPosition) < IntakeConstants.IS_AT_GOAL_TOLERANCE) {

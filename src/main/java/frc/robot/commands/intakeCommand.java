@@ -9,12 +9,14 @@ public class intakeCommand extends Command {
   public intakeCommand(Intake intake) {
     this.intake = intake;
   }
+
   @Override
-  public void initialize(){
-    intake.intake(8);
+  public void initialize() {
+    intake.intake(6);
   }
+
   @Override
-  public void end(boolean interrupted){
+  public void end(boolean interrupted) {
     intake.intake(0.0);
-  } 
+  }
 }

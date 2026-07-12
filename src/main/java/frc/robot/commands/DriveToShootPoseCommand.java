@@ -156,7 +156,7 @@ public class DriveToShootPoseCommand extends Command {
     // =========================command drive========================//
     drive.runVelocity(
         ChassisSpeeds.fromFieldRelativeSpeeds(
-            driveVelocity.getX(), driveVelocity.getY(), -thetaVelocity, currentPose.getRotation()));
+            driveVelocity.getX(), driveVelocity.getY(), thetaVelocity, currentPose.getRotation()));
 
     // =======log states=======//
 

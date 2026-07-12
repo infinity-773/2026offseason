@@ -7,13 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BlueRight_A1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeCommand"
+            "pathName": "Cycle"
           }
         }
       ]

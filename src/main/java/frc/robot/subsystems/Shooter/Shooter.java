@@ -12,7 +12,7 @@ public class Shooter extends SubsystemBase {
   public boolean isAtGoalPos = true;
   public boolean readyFeed = false;
   public boolean startFeeder1 = false;
-  private final Debouncer speedDebouncer = new Debouncer(0.2, DebounceType.kRising);
+  private final Debouncer speedDebouncer = new Debouncer(0.3, DebounceType.kRising);
   private final Debouncer posDebouncer =
       new Debouncer(0.2, DebounceType.kRising); // this will fall when shoot out.use Both!
   private final Debouncer feedDebouncer =
@@ -32,12 +32,17 @@ public class Shooter extends SubsystemBase {
     Logger.processInputs("shooter", inputs);
     // 更新飞轮是否达到设定速度
     double goalSpeed = inputs.shotVelocitySetPoint;
-    isAtGoalSpeed = speedDebouncer.calculate(Math.abs(goalSpeed - inputs.shooterVelocity) < ShooterConstants.IS_AT_GOAL_SPEED_TOLERANCE);
+    isAtGoalSpeed =
+        speedDebouncer.calculate(
+                Math.abs(goalSpeed - inputs.shooterVelocity)
+                    < ShooterConstants.IS_AT_GOAL_SPEED_TOLERANCE)
+            && inputs.shotVelocitySetPoint != 0;
     Logger.recordOutput("Shooter/atGoalSpeed", isAtGoalSpeed);
     // 更新是否达到设定位置
     double goalPos = inputs.positionSetPoint;
     isAtGoalPos =
-        posDebouncer.calculate(Math.abs(goalPos - inputs.shooterPosition) < ShooterConstants.IS_AT_GOAL_POS_TOLERANCE);
+        posDebouncer.calculate(
+            Math.abs(goalPos - inputs.shooterPosition) < ShooterConstants.IS_AT_GOAL_POS_TOLERANCE);
     Logger.recordOutput("Shooter/atGoalPos", isAtGoalPos);
     // wait speed and pos to feed
     readyFeed =

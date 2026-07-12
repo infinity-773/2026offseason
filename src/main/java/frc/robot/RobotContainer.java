@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Autos.Left_A;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.DriveToShootPoseCommand;
 import frc.robot.generated.TunerConstants;
@@ -139,7 +140,12 @@ public class RobotContainer {
         "Drive SysId (Dynamic Forward)", drive.sysIdDynamic(SysIdRoutine.Direction.kForward));
     autoChooser.addOption(
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
-    autoChooser.addOption("PP Test Auto 1", new PathPlannerAuto("Test"));
+    autoChooser.addOption("Cycle", new PathPlannerAuto("Cycle"));
+    autoChooser.addOption("lineAndRotate", new PathPlannerAuto("lineWithRotate"));
+    autoChooser.addOption("line", new PathPlannerAuto("line"));
+    autoChooser.addOption(
+        "BuleLeftAttack",
+        Left_A.runBuleACommandInAuto("BlueLeft_A1", "BlueLeft_A2", intake, shooter));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -158,7 +164,7 @@ public class RobotContainer {
             drive,
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(),
-            () -> -controller.getLeftTriggerAxis() + controller.getRightTriggerAxis(),
+            () -> +controller.getLeftTriggerAxis() - controller.getRightTriggerAxis(),
             () -> 0.8));
 
     // Lock to 0° when A button is held
@@ -191,20 +197,18 @@ public class RobotContainer {
             Commands.runOnce(
                 () -> {
                   intake.intake(4);
-                  // intake.setPos(() -> 0.0);
                 }))
         .onFalse(
             Commands.runOnce(
                 () -> {
                   intake.intake(0);
-                  // intake.setPos(() -> 0.24);
                 }))
         .whileTrue(
             DriveCommands.joystickDriveWithLim(
                 drive,
                 () -> -controller.getLeftY(),
                 () -> -controller.getLeftX(),
-                () -> -controller.getLeftTriggerAxis() + controller.getRightTriggerAxis(),
+                () -> +controller.getLeftTriggerAxis() - controller.getRightTriggerAxis(),
                 () -> 0.4));
 
     controller
@@ -213,7 +217,7 @@ public class RobotContainer {
             Commands.runOnce(
                 () -> {
                   shooter.shoot(0.4, 60);
-                  intake.setPos(() -> 0.24);
+                  intake.setPos(() -> 0.27);
                 }))
         .onFalse(
             Commands.runOnce(
