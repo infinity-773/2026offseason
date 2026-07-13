@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.67554131054131,
-        "y": 5.869672364672365
+        "x": 2.649700854700855,
+        "y": 5.533746438746439
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.028345441159611,
-        "y": 6.369538842847886
+        "x": 3.002504985319156,
+        "y": 6.03361291692196
       },
       "isLocked": false,
       "linkedName": "蓝左Shoot末位置"
@@ -109,7 +109,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -43.498
+    "rotation": -36.20510303455668
   },
   "useDefaultConstraints": true
 }

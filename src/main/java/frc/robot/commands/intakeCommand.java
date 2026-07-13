@@ -12,7 +12,7 @@ public class intakeCommand extends Command {
 
   @Override
   public void initialize() {
-    intake.intake(6);
+    intake.intake(8);
   }
 
   @Override

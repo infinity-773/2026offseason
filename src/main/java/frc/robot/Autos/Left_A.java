@@ -14,11 +14,17 @@ import frc.robot.subsystems.drive.Drive;
 
 public class Left_A extends Command {
 
-  public static Command runBuleACommand(
+  public static Command BlueA(Intake intake, Shooter shooter, Drive drive) {
+    return new SequentialCommandGroup(
+        runBuleA1Command("BlueLeft_A1", "BlueLeft_A2", intake, shooter, drive),
+        runBuleA2Command("BlueLeft_A3", "BlueLeft_A2", intake, shooter));
+  }
+
+  public static Command runBuleA1Command(
       String pathName1, String pathName2, Intake intake, Shooter shooter, Drive drive) {
 
-    PathPlannerPath path1 = AutoFactory.getPathOnAlliance(pathName1);
-    PathPlannerPath path2 = AutoFactory.getPathOnAlliance(pathName2);
+    PathPlannerPath path1 = AutoFactory.getPPPath(pathName1);
+    PathPlannerPath path2 = AutoFactory.getPPPath(pathName2);
     AutoFactory.setPoseTostartPoint(path1, drive);
 
     return new SequentialCommandGroup(
@@ -27,7 +33,18 @@ public class Left_A extends Command {
         ShootCommands.shootWithTime(shooter, intake, 5));
   }
 
-  public static Command runBuleACommandInAuto(
+  public static Command runBuleA2Command(
+      String pathName1, String pathName2, Intake intake, Shooter shooter) {
+    PathPlannerPath path1 = AutoFactory.getPPPath(pathName1);
+    PathPlannerPath path2 = AutoFactory.getPPPath(pathName2);
+
+    return new SequentialCommandGroup(
+        new ParallelDeadlineGroup(AutoBuilder.followPath(path1), new intakeCommand(intake)),
+        AutoBuilder.followPath(path2),
+        ShootCommands.shootWithTime(shooter, intake, 5));
+  }
+
+  public static Command runBuleA1CommandInAuto(
       String AutoName1, String AutoName2, Intake intake, Shooter shooter) {
 
     return new SequentialCommandGroup(

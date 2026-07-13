@@ -144,9 +144,8 @@ public class RobotContainer {
     autoChooser.addOption("lineAndRotate", new PathPlannerAuto("lineWithRotate"));
     autoChooser.addOption("line", new PathPlannerAuto("line"));
     autoChooser.addOption(
-        "BuleLeftAttack",
-        Left_A.runBuleACommandInAuto("BlueLeft_A1", "BlueLeft_A2", intake, shooter));
-
+        "BuleLeft1", Left_A.runBuleA1CommandInAuto("BlueLeft_A1", "BlueLeft_A2", intake, shooter));
+    autoChooser.addOption("BlueLeft_A", Left_A.BlueA(intake, shooter, drive));
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -217,7 +216,7 @@ public class RobotContainer {
             Commands.runOnce(
                 () -> {
                   shooter.shoot(0.4, 60);
-                  intake.setPos(() -> 0.27);
+                  intake.setPos(() -> 0.3);
                 }))
         .onFalse(
             Commands.runOnce(

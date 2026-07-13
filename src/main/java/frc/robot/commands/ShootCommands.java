@@ -14,8 +14,8 @@ public class ShootCommands {
   public static Command shootWithTime(Shooter shooter, Intake intake, double time) {
     return Commands.startEnd(
             () -> {
-              shooter.shoot(0.4, 60);
-              intake.setPos(() -> 0.27);
+              shooter.shoot(0.4, 63);
+              intake.setPos(() -> 0.34);
             },
             () -> {
               shooter.stop();
