@@ -12,12 +12,12 @@ import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Shooter.Shooter;
 import frc.robot.subsystems.drive.Drive;
 
-public class Left_A extends Command {
+public class Right_A extends Command {
 
   public static Command BlueA(Intake intake, Shooter shooter, Drive drive) {
     return new SequentialCommandGroup(
-        runBuleA1Command("BlueLeft_A1", "BlueLeft_A2", intake, shooter, drive),
-        runBuleA2Command("BlueLeft_A3", "BlueLeft_A2", intake, shooter));
+        runBuleA1Command("BlueRight_A1", "BlueRight_A2", intake, shooter, drive),
+        runBuleA2Command("BlueRight_A3", "BlueRight_A2", intake, shooter));
   }
 
   public static Command runBuleA1Command(
