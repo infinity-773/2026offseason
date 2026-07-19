@@ -16,7 +16,7 @@ public class Intake extends SubsystemBase {
 
   public Intake(IntakeIO io) {
     this.io = io;
-    io.resetPos(0.0);
+    io.resetPos(0.387207);// max Pos is about 0.387207 TODO
   }
 
   @Override

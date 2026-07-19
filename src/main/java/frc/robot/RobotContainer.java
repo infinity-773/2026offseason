@@ -145,7 +145,6 @@ public class RobotContainer {
     autoChooser.addOption("line", new PathPlannerAuto("line"));
     autoChooser.addOption(
         "BuleLeft1", Left_A.runBuleA1CommandInAuto("BlueLeft_A1", "BlueLeft_A2", intake, shooter));
-    autoChooser.addOption("BlueLeft_A", Left_A.BlueA(intake, shooter, drive));
     // Configure the button bindings
     configureButtonBindings();
   }
