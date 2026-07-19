@@ -1,0 +1,86 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.519,
+        "y": 0.622
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.598619069457737,
+        "y": 0.8379251371730768
+      },
+      "isLocked": false,
+      "linkedName": "蓝右限高初始点"
+    },
+    {
+      "anchor": {
+        "x": 7.687,
+        "y": 1.065
+      },
+      "prevControl": {
+        "x": 7.297295752248092,
+        "y": 0.32199825082028266
+      },
+      "nextControl": {
+        "x": 7.908095616126231,
+        "y": 1.4865361532890888
+      },
+      "isLocked": false,
+      "linkedName": "蓝右intake初位置"
+    },
+    {
+      "anchor": {
+        "x": 7.805,
+        "y": 3.321
+      },
+      "prevControl": {
+        "x": 7.8606041019127035,
+        "y": 3.0772620590665425
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "蓝右intake末位置"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.33,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": -90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "ShouldIntake",
+      "waypointRelativePos": 0.77,
+      "endWaypointRelativePos": 2.0,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 1.5,
+    "rotation": -90.0
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}
