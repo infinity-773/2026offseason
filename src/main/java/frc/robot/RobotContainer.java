@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Autos.Left_A;
+import frc.robot.Autos.Right_A;
+import frc.robot.Autos.Middle_A;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.DriveToShootPoseCommand;
 import frc.robot.generated.TunerConstants;
@@ -37,6 +39,9 @@ import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.vision.VisionConstants;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOPhotonVision;
+
+import javax.sound.midi.spi.MidiFileReader;
+
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -147,11 +152,14 @@ public class RobotContainer {
         "BuleLeft1",
         Left_A.runBuleA1CommandInAuto(
             "BlueLeft_A1", "BlueLeft_A2", "BlueLeft_A3", intake, shooter));
-    autoChooser.addOption("BlueLeft_A", Left_A.BlueA(intake, shooter, drive));
     autoChooser.addOption(
         "BulerRight1",
-        Left_A.runBuleA1CommandInAuto(
+        Right_A.runBuleA1CommandInAuto(
             "BlueRight_A1", "BlueRight_A2", "BlueRight_A3", intake, shooter));
+    autoChooser.addOption(
+        "BulerMiddle1",
+        Middle_A.runBuleA1CommandInAuto(
+            "BlueMiddle_A1",intake, shooter));
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -169,7 +177,10 @@ public class RobotContainer {
             drive,
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(),
-            () -> +controller.getLeftTriggerAxis() - controller.getRightTriggerAxis(),
+            () ->
+                +controller.getLeftTriggerAxis()
+                    - controller.getRightTriggerAxis()
+                    - controller.getRightX(),
             () -> 0.8));
 
     // Lock to 0° when A button is held
@@ -183,11 +194,11 @@ public class RobotContainer {
     // () -> Rotation2d.kZero));
 
     // Switch to X pattern when X button is pressed
-    controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
+    // controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
     // Reset gyro to 0° when B button is pressed
     controller
-        .b()
+        .x()
         .onTrue(
             Commands.runOnce(
                     () ->
@@ -201,7 +212,7 @@ public class RobotContainer {
         .onTrue(
             Commands.runOnce(
                 () -> {
-                  intake.intake(4);
+                  intake.intake(5);
                 }))
         .onFalse(
             Commands.runOnce(
@@ -222,6 +233,21 @@ public class RobotContainer {
             Commands.runOnce(
                 () -> {
                   shooter.shoot(0.4, 60);
+                  intake.setPos(() -> 0.3);
+                }))
+        .onFalse(
+            Commands.runOnce(
+                () -> {
+                  shooter.stop();
+                  intake.setPos(() -> 0.0);
+                }));
+
+    controller
+        .b()
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                  shooter.shoot(1.2, 60);
                   intake.setPos(() -> 0.3);
                 }))
         .onFalse(

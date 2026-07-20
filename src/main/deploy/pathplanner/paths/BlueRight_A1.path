@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.519,
-        "y": 0.622
+        "x": 4.418208778173192,
+        "y": 0.6404744958481603
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.598619069457737,
-        "y": 0.8379251371730768
+        "x": 5.687793594306051,
+        "y": 0.7157888493475684
       },
       "isLocked": false,
       "linkedName": "蓝右限高初始点"
@@ -73,7 +73,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.5,
+    "velocity": 1.0,
     "rotation": -90.0
   },
   "reversed": false,

@@ -50,9 +50,9 @@ public class Left_A extends Command {
     return new SequentialCommandGroup(
         new ParallelDeadlineGroup(new PathPlannerAuto(AutoName1), new intakeCommand(intake)),
         new PathPlannerAuto(AutoName2),
-        ShootCommands.shootWithTime(shooter, intake, 5),
-        new PathPlannerAuto(AutoName3),
+        ShootCommands.shootWithTime(shooter, intake, 4),
+        new ParallelDeadlineGroup(new PathPlannerAuto(AutoName3), new intakeCommand(intake)),
         new PathPlannerAuto(AutoName2),
-        ShootCommands.shootWithTime(shooter, intake, 5));
+        ShootCommands.shootWithTime(shooter, intake, 4));
   }
 }
