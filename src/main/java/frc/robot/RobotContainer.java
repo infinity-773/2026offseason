@@ -147,7 +147,6 @@ public class RobotContainer {
         "BuleLeft1",
         Left_A.runBuleA1CommandInAuto(
             "BlueLeft_A1", "BlueLeft_A2", "BlueLeft_A3", intake, shooter));
-    autoChooser.addOption("BlueLeft_A", Left_A.BlueA(intake, shooter, drive));
     autoChooser.addOption(
         "BulerRight1",
         Left_A.runBuleA1CommandInAuto(
