@@ -315,7 +315,6 @@ public class Drive extends SubsystemBase {
     double output = 0.0;
     for (int i = 0; i < 4; i++) {
       output += modules[i].getFFCharacterizationVelocity() / 4.0;
-      
     }
     return output;
   }

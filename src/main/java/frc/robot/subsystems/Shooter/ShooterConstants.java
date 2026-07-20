@@ -14,8 +14,8 @@ public final class ShooterConstants {
   public static final Translation2d GOAL = new Translation2d(0, 0);
   public static final double G = 9.8;
 
-  public static final double IS_AT_GOAL_SPEED_TOLERANCE = 2;
-  public static final double IS_AT_GOAL_POS_TOLERANCE = 0.02;
+  public static final double IS_AT_GOAL_SPEED_TOLERANCE = 5;
+  public static final double IS_AT_GOAL_POS_TOLERANCE = 0.08;
 
   // ShooterIOTalonFX
   // ========== CAN IDs ==========
