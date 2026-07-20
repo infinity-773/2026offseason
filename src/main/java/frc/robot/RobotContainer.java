@@ -182,11 +182,11 @@ public class RobotContainer {
     // () -> Rotation2d.kZero));
 
     // Switch to X pattern when X button is pressed
-    controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
+    //controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
     // Reset gyro to 0° when B button is pressed
     controller
-        .b()
+        .x()
         .onTrue(
             Commands.runOnce(
                     () ->
@@ -216,11 +216,26 @@ public class RobotContainer {
                 () -> 0.4));
 
     controller
-        .a()
+        .leftBumper()
         .onTrue(
             Commands.runOnce(
                 () -> {
                   shooter.shoot(0.4, 60);
+                  intake.setPos(() -> 0.3);
+                }))
+        .onFalse(
+            Commands.runOnce(
+                () -> {
+                  shooter.stop();
+                  intake.setPos(() -> 0.0);
+                }));
+
+    controller
+        .a()
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                  shooter.shoot(1.6, 60);
                   intake.setPos(() -> 0.3);
                 }))
         .onFalse(
