@@ -51,9 +51,9 @@ public class DriveToShootPoseCommand extends Command {
     // 原点永远定义在蓝方一侧
 
     if (ifBlue()) {
-      targetPoint = new Translation2d(4.620, 4.045); // TODO
+      targetPoint = new Translation2d(4.520, 4.045); // TODO
     } else {
-      targetPoint = new Translation2d(11.8, 4.045); // TODO
+      targetPoint = new Translation2d(11.9, 4.045); // TODO
     }
 
     currentPose = drive.getPose();

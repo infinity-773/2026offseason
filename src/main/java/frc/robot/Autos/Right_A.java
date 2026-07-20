@@ -45,7 +45,7 @@ public class Right_A extends Command {
   }
 
   public static Command runBuleA1CommandInAuto(
-      String AutoName1, String AutoName2,String AutoName3, Intake intake, Shooter shooter) {
+      String AutoName1, String AutoName2, String AutoName3, Intake intake, Shooter shooter) {
 
     return new SequentialCommandGroup(
         new ParallelDeadlineGroup(new PathPlannerAuto(AutoName1), new intakeCommand(intake)),
@@ -53,7 +53,6 @@ public class Right_A extends Command {
         ShootCommands.shootWithTime(shooter, intake, 5),
         new PathPlannerAuto(AutoName3),
         new PathPlannerAuto(AutoName2),
-        ShootCommands.shootWithTime(shooter, intake, 5)
-        );
+        ShootCommands.shootWithTime(shooter, intake, 5));
   }
 }
